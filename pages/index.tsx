@@ -12,6 +12,42 @@ export default function Home() {
       </Head>
 
       <Header />
+
+      <main className="container p-2">
+        <p className="font-extrabold text-lg mb-4 uppercase">Floating Input</p>
+
+        <form className="flex flex-col space-y-4">
+          <div className="relative">
+            <input
+              type="text"
+              id="email"
+              placeholder="email"
+              className="peer w-full placeholder-transparent p-4 border border-indigo-400 text-lg outline-none rounded-md"
+            />
+            <label
+              htmlFor="email"
+              className="absolute transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] top-[-10px] left-2 px-2 text-indigo-400 text-sm bg-white peer-focus:text-sm peer-focus:text-indigo-400"
+            >
+              Email Address
+            </label>
+          </div>
+
+          <div className="relative">
+            <input
+              type="password"
+              id="password"
+              placeholder="password"
+              className="peer w-full placeholder-transparent p-4 border border-indigo-400 text-lg outline-none rounded-md"
+            />
+            <label
+              htmlFor="password"
+              className="absolute transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] top-[-10px] left-2 px-2 text-indigo-400 text-sm bg-white peer-focus:text-sm peer-focus:text-indigo-400"
+            >
+              Password
+            </label>
+          </div>
+        </form>
+      </main>
     </div>
   );
 }
