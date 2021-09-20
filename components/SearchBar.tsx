@@ -1,6 +1,7 @@
 import { SearchIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/dist/client/router';
 import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import ClickedOutsideWrapper from '../helper/ClickedOutsideWrapper';
 
 const searchItems = ['따효니', '한동숙', '풍월량', '침착맨'];
 
@@ -9,7 +10,6 @@ function SearchBar() {
   const [show, setShow] = useState(false);
   const [keyword, setKeyword] = useState('');
   const [cursor, setCursor] = useState(-1);
-  const searchBarRef: MutableRefObject<HTMLDivElement | null> = useRef(null);
 
   const handleKey = useCallback(
     (e: React.KeyboardEvent) => {
@@ -35,6 +35,17 @@ function SearchBar() {
     setKeyword(e.target.value);
   }, []);
 
+  const handleMouseEnter = useCallback((cursor: number) => {
+    setCursor(cursor);
+  }, []);
+
+  const handleClick = useCallback(
+    (item: any) => {
+      router.push(`/keyword/${item}`);
+    },
+    [router]
+  );
+
   useEffect(() => {
     if (keyword) {
       setShow(true);
@@ -47,50 +58,43 @@ function SearchBar() {
     if (cursor > -1) setKeyword(searchItems[cursor]);
   }, [cursor]);
 
-  useEffect(() => {
-    const checkIfClickedOutside = (e: MouseEvent) => {
-      if (show && searchBarRef.current && !searchBarRef.current.contains(e.target as Node)) {
-        setShow(false);
-      }
-    };
-
-    document.addEventListener('mousedown', checkIfClickedOutside);
-
-    return () => document.removeEventListener('mousedown', checkIfClickedOutside);
-  }, [show]);
-
   return (
-    <div ref={searchBarRef} className="bg-indigo-400 relative">
-      <div className="flex items-center p-1">
-        <input
-          type="text"
-          placeholder="Search Keyword"
-          onKeyDown={handleKey}
-          value={keyword}
-          onChange={handleInput}
-          className="flex flex-grow outline-none p-2"
-        />
-        <SearchIcon className="h-10 w-10 p-2 rounded-lg ml-1 bg-indigo-400 text-white cursor-pointer" />
-      </div>
+    <ClickedOutsideWrapper onClickOutside={setShow}>
+      <div className="bg-indigo-400 relative">
+        <div className="flex items-center p-1">
+          <input
+            type="text"
+            placeholder="Search Keyword"
+            onKeyDown={handleKey}
+            value={keyword}
+            onChange={handleInput}
+            className="flex flex-grow outline-none p-2 rounded-sm "
+          />
+          <SearchIcon className="h-10 w-10 p-2 rounded-lg ml-1 bg-indigo-400 text-white cursor-pointer" />
+        </div>
 
-      {/* 검색어 목록 */}
-      <div>
-        {show && (
-          <ul className="absolute bg-gray-100 flex flex-col w-full divide-y-2">
-            {searchItems.map((item, index) => (
-              <li
-                key={index}
-                className={`text-lg p-2 font-bold hover:bg-gray-200  ${
-                  cursor === index && 'bg-gray-200'
-                }`}
-              >
-                {item}
-              </li>
-            ))}
-          </ul>
-        )}
+        {/* 검색어 목록 */}
+        <div>
+          {show && (
+            <ul className="absolute bg-gray-100 flex flex-col w-full divide-y-2">
+              {searchItems.map((item, index) => (
+                <li
+                  key={index}
+                  onMouseEnter={() => handleMouseEnter(index)}
+                  onClick={() => handleClick(item)}
+                  className={` flex items-center text-lg p-2 font-semibold hover:bg-gray-200  ${
+                    cursor === index && 'bg-gray-200'
+                  }`}
+                >
+                  <SearchIcon className="h-4 mr-2" />
+                  {item}
+                </li>
+              ))}
+            </ul>
+          )}
+        </div>
       </div>
-    </div>
+    </ClickedOutsideWrapper>
   );
 }
 
