@@ -74,26 +74,26 @@ function SearchBar() {
 
   return (
     <ClickedOutsideWrapper onClickOutside={setShow}>
-      <div className="bg-indigo-400 relative">
-        <div className="flex items-center p-1">
+      <div className="relative bg-indigo-400">
+        <div className="flex items-center p-[1px]">
           <input
             type="text"
             placeholder="Search Keyword"
             onKeyDown={handleKey}
             value={keyword}
             onChange={handleInput}
-            className="flex flex-grow outline-none p-2 rounded-sm "
+            className="flex flex-grow p-2 rounded-sm outline-none dark:bg-gray-900 "
           />
           <SearchIcon
             onClick={handleSearch}
-            className="h-10 w-10 p-2 rounded-lg ml-1 bg-indigo-400 text-white cursor-pointer"
+            className="w-10 h-10 p-2 ml-1 text-white bg-indigo-400 rounded-lg cursor-pointer"
           />
         </div>
 
         {/* 검색어 목록 */}
         <div>
           {show && (
-            <ul className="absolute bg-gray-100 flex flex-col w-full divide-y-2">
+            <ul className="absolute flex flex-col w-full bg-gray-100 divide-y-2">
               {searchItems.map((item, index) => (
                 <li
                   key={index}
