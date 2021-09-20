@@ -1,10 +1,14 @@
 import { SearchIcon } from '@heroicons/react/solid';
 import { useRouter } from 'next/dist/client/router';
-import React, { MutableRefObject, useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import ClickedOutsideWrapper from '../helper/ClickedOutsideWrapper';
 
 const searchItems = ['따효니', '한동숙', '풍월량', '침착맨'];
 
+/**
+ * 검색 바
+ * @returns
+ */
 function SearchBar() {
   const router = useRouter();
   const [show, setShow] = useState(false);
@@ -39,14 +43,23 @@ function SearchBar() {
     setCursor(cursor);
   }, []);
 
-  const handleClick = useCallback(
+  //* 검색어 클릭
+  const handleKeywordClick = useCallback(
     (item: any) => {
       router.push(`/keyword/${item}`);
     },
     [router]
   );
 
+  //* 검색 버튼 클릭
+  const handleSearch = useCallback(() => {
+    if (!keyword || !keyword.trim()) return;
+    router.push(`/keyword/${keyword}`);
+    setShow(false);
+  }, [keyword, router]);
+
   useEffect(() => {
+    //? 키워드가 있을 때만 검색어 목록을 보여준다.
     if (keyword) {
       setShow(true);
     } else {
@@ -55,6 +68,7 @@ function SearchBar() {
   }, [keyword]);
 
   useEffect(() => {
+    //? 키보드 커서 위치에 해당하는 키워드로 변경한다.
     if (cursor > -1) setKeyword(searchItems[cursor]);
   }, [cursor]);
 
@@ -70,7 +84,10 @@ function SearchBar() {
             onChange={handleInput}
             className="flex flex-grow outline-none p-2 rounded-sm "
           />
-          <SearchIcon className="h-10 w-10 p-2 rounded-lg ml-1 bg-indigo-400 text-white cursor-pointer" />
+          <SearchIcon
+            onClick={handleSearch}
+            className="h-10 w-10 p-2 rounded-lg ml-1 bg-indigo-400 text-white cursor-pointer"
+          />
         </div>
 
         {/* 검색어 목록 */}
@@ -81,7 +98,7 @@ function SearchBar() {
                 <li
                   key={index}
                   onMouseEnter={() => handleMouseEnter(index)}
-                  onClick={() => handleClick(item)}
+                  onClick={() => handleKeywordClick(item)}
                   className={` flex items-center text-lg p-2 font-semibold hover:bg-gray-200  ${
                     cursor === index && 'bg-gray-200'
                   }`}

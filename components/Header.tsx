@@ -11,43 +11,51 @@ function Header() {
   const [isDropdownOpened, setIsDropdownOpened] = useState(false);
 
   return (
-    <header className="grid grid-cols-[20%,60%,20%] md:grid-cols-[20%,50%,30%] gap-1 z-50 p-4 border-b shadow-md bg-white sticky top-0">
-      <div className="flex">
-        <div className="flex items-center">
-          <p
-            onClick={() => router.push('/')}
-            className="cursor-pointer tracking-wider text-xl font-bold"
-          >
-            LOGO
-          </p>
-        </div>
-      </div>
-      <div>
-        <SearchBar />
-      </div>
-      <div className="relative flex items-center justify-end">
-        <ClickedOutsideWrapper onClickOutside={setIsDropdownOpened}>
+    <header className="sticky top-0 z-50 px-8 py-4 border-b shadow-md bg-white mx-auto ">
+      <div className="grid grid-cols-[15%,75%,10%] md:grid-cols-[20%,50%,30%] gap-2">
+        <div className="flex flex-shrink-0">
           <div className="flex items-center">
-            <MenuIcon
-              onClick={() => setIsDropdownOpened((prev) => !prev)}
-              className="h-10 cursor-pointer md:hidden"
-            />
-            <div className="hidden md:flex space-x-4">
-              {menuItems.map((item, index) => (
-                <div key={index}>{item}</div>
-              ))}
-            </div>
+            <p
+              onClick={() => router.push('/')}
+              className="cursor-pointer tracking-wider text-xl font-bold"
+            >
+              LOGO
+            </p>
           </div>
-          {isDropdownOpened && (
-            <ul className="absolute right-0 mt-2 bg-gray-100 w-48 divide-y-2">
-              {menuItems.map((item, index) => (
-                <li key={index} className="px-2 py-4 hover:bg-gray-200 select-none cursor-pointer">
-                  {item}
-                </li>
-              ))}
-            </ul>
-          )}
-        </ClickedOutsideWrapper>
+        </div>
+        <div>
+          <SearchBar />
+        </div>
+        <div className="relative flex items-center justify-end ">
+          <ClickedOutsideWrapper onClickOutside={setIsDropdownOpened}>
+            <div className="flex items-center">
+              <MenuIcon
+                onClick={() => setIsDropdownOpened((prev) => !prev)}
+                className="h-10 cursor-pointer md:hidden"
+              />
+              <div className="hidden md:flex space-x-4">
+                {menuItems.map((item, index) => (
+                  <div key={index} className="cursor-pointer">
+                    {item}
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {isDropdownOpened && (
+              <ul className="absolute right-0 mt-2 bg-gray-100 w-48 divide-y-2">
+                {menuItems.map((item, index) => (
+                  <li
+                    key={index}
+                    className="px-2 py-4 hover:bg-gray-200 select-none cursor-pointer"
+                  >
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            )}
+          </ClickedOutsideWrapper>
+        </div>
       </div>
     </header>
   );
