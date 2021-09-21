@@ -13,7 +13,7 @@ function Header() {
 
   return (
     <header className="sticky top-0 z-50 px-8 py-4 mx-auto bg-white border-b shadow-md dark:text-gray-200 dark:bg-gray-900 dark:border-black ">
-      <div className="grid grid-cols-[15%,70%,15%] md:grid-cols-[20%,50%,30%] gap-2">
+      <div className="grid grid-cols-[15%,65%,20%] md:grid-cols-[20%,50%,30%] gap-2">
         <div className="flex flex-shrink-0">
           <div className="flex items-center">
             <p
@@ -27,7 +27,7 @@ function Header() {
         <div>
           <SearchBar />
         </div>
-        <div className="relative flex items-center justify-end ">
+        <div className="relative flex items-center justify-end">
           <DarkModeToggle />
 
           <ClickedOutsideWrapper onClickOutside={setIsDropdownOpened}>

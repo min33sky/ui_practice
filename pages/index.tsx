@@ -1,12 +1,10 @@
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import Header from '../components/Header';
-import useDarkMode from '../hooks/useDarkMode';
 
 export default function Home() {
   const [isClicked, setIsClicked] = useState(false);
   const [show, setShow] = useState(false);
-  // useDarkMode();
 
   useEffect(() => {
     let clearClicked: any;
@@ -53,7 +51,7 @@ export default function Home() {
             />
             <label
               htmlFor="email"
-              className="absolute transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] top-[-10px] left-2 px-2 text-indigo-400 text-sm bg-white peer-focus:text-sm peer-focus:text-indigo-400 peer-focus:rounded-full "
+              className="absolute bg-transparent transition-all  peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] top-[-10px] left-2 px-2 text-indigo-400 text-sm  peer-focus:text-sm peer-focus:text-indigo-400 peer-focus:rounded-full dark:peer-focus:bg-black peer-focus:bg-white"
             >
               Email Address
             </label>
@@ -68,7 +66,7 @@ export default function Home() {
             />
             <label
               htmlFor="password"
-              className="absolute transition-all peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] top-[-10px] left-2 px-2 text-indigo-400 text-sm bg-white peer-focus:text-sm peer-focus:text-indigo-400 peer-focus:rounded-full "
+              className="absolute bg-transparent transition-all  peer-placeholder-shown:top-4 peer-placeholder-shown:text-lg peer-placeholder-shown:text-gray-400 peer-focus:top-[-10px] top-[-10px] left-2 px-2 text-indigo-400 text-sm  peer-focus:text-sm peer-focus:text-indigo-400 peer-focus:rounded-full dark:peer-focus:bg-black peer-focus:bg-white"
             >
               Password
             </label>
@@ -89,8 +87,8 @@ export default function Home() {
               onClick={() => {
                 setIsClicked((prev) => !prev);
               }}
-              className={`absolute top-[90%] right-12 sm:top-32 sm:right-0 bg-red-300 w-96 transition duration-500 ease-in-out ${
-                isClicked && 'translate-y-10 sm:translate-x-96 sm:translate-y-0 opacity-0'
+              className={`absolute top-[90%] right-12 sm:top-32 sm:right-6 bg-red-300 w-96 transition duration-500 ease-in-out ${
+                isClicked && 'translate-y-5 sm:translate-x-5 sm:translate-y-0 opacity-0'
               }`}
             >
               <p>Hello Tailwind</p>
